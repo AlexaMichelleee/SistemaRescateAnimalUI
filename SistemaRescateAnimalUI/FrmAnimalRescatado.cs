@@ -4,17 +4,21 @@
 using System;
 using System.Windows.Forms;
 using SistemaRescateAnimal.Models;
+using SistemaRescateAnimalUI.Models;
 
 namespace SistemaRescateAnimalUI
 {
     public partial class FrmAnimalRescatado : FrmBase, IPanelCRUD
     {
-        // Instancia estática o compartida del modelo para conservar los datos en memoria RAM
+        
         private static AnimalRescatado _modeloAnimal = new AnimalRescatado();
 
         public FrmAnimalRescatado()
         {
             InitializeComponent();
+            this.Size = new System.Drawing.Size(1100, 800);
+            InicializarControlesPila();
+            InicializarControlesLista();
         }
 
         public void EjecutarGuardar()
@@ -138,12 +142,12 @@ namespace SistemaRescateAnimalUI
             chkEsActivo.Checked = false;
             dtpFechaRegistro.Value = DateTime.Now;
         }
-    
-     //instancia :)
-    private AnimalHistorial historialPila = new AnimalHistorial();
+
+        //instancia :)
+        private AnimalHistorial historialPila = new AnimalHistorial();
 
         private TextBox txtEstado;
-        private Button btnRegistrarEstado; 
+        private Button btnRegistrarEstado;
         private Button btnRegistrar;
         private Button btnDeshacer;
         private ListBox lstHistorial;
@@ -152,65 +156,54 @@ namespace SistemaRescateAnimalUI
 
         private void InicializarControlesPila()
         {
-            //etiqueta 
-
             Label lblInstruccion = new Label();
             lblInstruccion.Text = "Estado del animal a registrar: ";
-            lblInstruccion.Location = new System.Drawing.Point(30, 210);
+            lblInstruccion.Location = new System.Drawing.Point(350, 200); // <-- MOVIDO
             lblInstruccion.AutoSize = true;
             this.Controls.Add(lblInstruccion);
 
-            //textbox
-
+            
             this.txtEstado = new TextBox();
-            this.txtEstado.Location = new System.Drawing.Point(30, 230);
-            this.txtEstado.Size = new System.Drawing.Size(250, 20);
+            this.txtEstado.Location = new System.Drawing.Point(350, 220); // <-- MOVIDO
+            this.txtEstado.Size = new System.Drawing.Size(200, 20);
             this.Controls.Add(this.txtEstado);
-
-            //BOTON PARA REG
 
             this.btnRegistrarEstado = new Button();
             this.btnRegistrarEstado.Text = "Registrar Estado";
-            this.btnRegistrarEstado.Location = new System.Drawing.Point(30, 260);
+            this.btnRegistrarEstado.Location = new System.Drawing.Point(350, 250); // <-- MOVIDO
             this.btnRegistrarEstado.Size = new System.Drawing.Size(120, 30);
-            this.btnRegistrarEstado.Click += new EventHandler (this.btnRegistrarEstado_Click);
+            this.btnRegistrarEstado.Click += new EventHandler(this.btnRegistrarEstado_Click);
             this.Controls.Add(this.btnRegistrarEstado);
 
-            //BOTON DESHACER
-
+           
             this.btnDeshacer = new Button();
-            this.btnDeshacer.Text = "Deshacer Ultimo: ";
-            this.btnDeshacer.Location = new System.Drawing.Point(160, 260);
+            this.btnDeshacer.Text = "Deshacer Último";
+            this.btnDeshacer.Location = new System.Drawing.Point(480, 250); // <-- MOVIDO
             this.btnDeshacer.Size = new System.Drawing.Size(120, 30);
             this.btnDeshacer.Click += new EventHandler(this.btnDeshacer_Click);
             this.Controls.Add(this.btnDeshacer);
 
-            //lissta
-
             this.lstHistorial = new ListBox();
-            this.lstHistorial.Location = new System.Drawing.Point(30, 310);
+            this.lstHistorial.Location = new System.Drawing.Point(350, 290); // <-- MOVIDO
             this.lstHistorial.Size = new System.Drawing.Size(250, 150);
             this.Controls.Add(this.lstHistorial);
 
-            //lbl
-
+           
             this.lblCima = new Label();
-            this.lblCima.Text = "Cima: (vacia) ";
-            this.lblCima.Location = new System.Drawing.Point(30, 470);
+            this.lblCima.Text = "Cima: (vacía)";
+            this.lblCima.Location = new System.Drawing.Point(350, 450); // <-- MOVIDO
             this.lblCima.AutoSize = true;
             this.Controls.Add(this.lblCima);
 
-            //lbl de nosotros
+           
             this.lblAutor = new Label();
-            this.lblAutor.Text = "E5: Alexa Michelle Gonzalez Alvarado" +
-                "Maldonado Lllamas Oswaldo Daniel" +
-                "Flores Carlos Roberto";
-            this.lblAutor.Location = new System.Drawing.Point(30, 500);
+            this.lblAutor.Text = "EQUIPO: Alexa Michelle Gonzalez Alvarado, Maldonado Llamas Oswaldo Daniel, Flores Carlos Roberto";
+            this.lblAutor.Location = new System.Drawing.Point(30, 650); // <-- MOVIDO HASTA ABAJO
             this.lblAutor.AutoSize = true;
             this.Controls.Add(this.lblAutor);
         }
 
-        //push
+        
 
         private void btnRegistrarEstado_Click(object sender, EventArgs e)
         {
@@ -250,5 +243,134 @@ namespace SistemaRescateAnimalUI
 
 
         }
-    }
+
+        private void FrmAnimalRescatado_Load(object sender, EventArgs e)
+        {
+
+        }
+
+    private HistorialClinico miHistorial = new HistorialClinico();
+
+       
+        private TextBox txtIdVacuna;
+        private TextBox txtNombreVacuna;
+        private Button btnAgregarDetalle;
+        private Button btnEliminarDetalle;
+        private DataGridView dgvVacunas;
+        private Label lblContadorVacunas;
+
+        
+        private void InicializarControlesLista()
+        {
+           
+            Label lblId = new Label();
+            lblId.Text = "ID Vacuna:";
+            lblId.Location = new System.Drawing.Point(650, 200);
+            lblId.AutoSize = true;
+            this.Controls.Add(lblId);
+
+            
+            this.txtIdVacuna = new TextBox();
+            this.txtIdVacuna.Location = new System.Drawing.Point(650, 220); 
+            this.txtIdVacuna.Size = new System.Drawing.Size(100, 20);
+            this.Controls.Add(this.txtIdVacuna);
+
+            
+            Label lblNom = new Label();
+            lblNom.Text = "Nombre Vacuna:";
+            lblNom.Location = new System.Drawing.Point(650, 250); 
+            lblNom.AutoSize = true;
+            this.Controls.Add(lblNom);
+
+            
+            this.txtNombreVacuna = new TextBox();
+            this.txtNombreVacuna.Location = new System.Drawing.Point(650, 270); 
+            this.txtNombreVacuna.Size = new System.Drawing.Size(150, 20);
+            this.Controls.Add(this.txtNombreVacuna);
+
+            
+            this.btnAgregarDetalle = new Button();
+            this.btnAgregarDetalle.Text = "Agregar Detalle";
+            this.btnAgregarDetalle.Location = new System.Drawing.Point(650, 300); 
+            this.btnAgregarDetalle.Size = new System.Drawing.Size(120, 30);
+            this.btnAgregarDetalle.Click += new EventHandler(this.btnAgregarDetalle_Click);
+            this.Controls.Add(this.btnAgregarDetalle);
+
+            
+            this.btnEliminarDetalle = new Button();
+            this.btnEliminarDetalle.Text = "Eliminar por ID";
+            this.btnEliminarDetalle.Location = new System.Drawing.Point(780, 300); 
+            this.btnEliminarDetalle.Size = new System.Drawing.Size(120, 30);
+            this.btnEliminarDetalle.Click += new EventHandler(this.btnEliminarDetalle_Click);
+            this.Controls.Add(this.btnEliminarDetalle);
+
+            
+            this.dgvVacunas = new DataGridView();
+            this.dgvVacunas.Location = new System.Drawing.Point(650, 350); 
+            this.dgvVacunas.Size = new System.Drawing.Size(400, 200);
+            this.dgvVacunas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.Controls.Add(this.dgvVacunas);
+
+            
+            this.lblContadorVacunas = new Label();
+            this.lblContadorVacunas.Text = "Total vacunas: 0";
+            this.lblContadorVacunas.Location = new System.Drawing.Point(650, 560); 
+            this.lblContadorVacunas.AutoSize = true;
+            this.Controls.Add(this.lblContadorVacunas);
+        }
+
+        
+        private void btnAgregarDetalle_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtIdVacuna.Text) || string.IsNullOrWhiteSpace(txtNombreVacuna.Text))
+            {
+                MessageBox.Show("Por favor, llene todos los campos de la vacuna.", "Aviso");
+                return;
+            }
+
+            if (miHistorial.ExisteVacuna(txtIdVacuna.Text) == true)
+            {
+                MessageBox.Show("Ya existe una vacuna con ese ID.", "Error");
+                return;
+            }
+
+            Vacuna nueva = new Vacuna();
+            nueva.Id = txtIdVacuna.Text;
+            nueva.Nombre = txtNombreVacuna.Text;
+            nueva.FechaAplicacion = DateTime.Now;
+            nueva.EsActiva = true;
+
+            miHistorial.RegistrarElementos(nueva);
+
+            txtIdVacuna.Clear();
+            txtNombreVacuna.Clear();
+
+            ActualizarVistaLista();
+        }
+
+        // EVENTO ELIMINAR DETALLE
+        private void btnEliminarDetalle_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtIdVacuna.Text))
+            {
+                MessageBox.Show("Escriba el ID de la vacuna a eliminar.", "Aviso");
+                return;
+            }
+
+            miHistorial.EliminarPorID(txtIdVacuna.Text);
+            txtIdVacuna.Clear();
+
+            ActualizarVistaLista();
+        }
+
+        // MÉTODO QUE SINCRONIZA LA VISTA CON LA COLECCIÓN
+        private void ActualizarVistaLista()
+        {
+            dgvVacunas.DataSource = null;
+            dgvVacunas.DataSource = miHistorial.ListaVacunas;
+
+            lblContadorVacunas.Text = "Total vacunas: " + miHistorial.ContarElementos().ToString();
+        }
+
+    } 
 }

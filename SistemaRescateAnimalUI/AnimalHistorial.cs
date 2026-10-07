@@ -1,33 +1,30 @@
 ﻿//INTEGRANTES: 
-//Alexa Michelle Gonzalez Alvarado,Maldonado Llamas Oswaldo Daniel, Flores Carlos Robert
+//Alexa Michelle Gonzalez Alvarado,Maldonado Llamas Oswaldo Daniel, Flores Carlos Roberto
 
 using System;
 using System.Collections.Generic;
-using System.Text;
+
+
 
 namespace SistemaRescateAnimalUI
 {
-    public class AnimalHistorial
+   public class AnimalHistorial
     {
-        //nuestro encapsulamiento 
         private Stack<string> _historialEstados = new Stack<string>();
 
         public Stack<string> HistorialEstados
         {
-
             get { return _historialEstados; }
-
         }
 
-        //metodos
-        public void Push(string estado)
+        public void Push (string estado)
         {
             _historialEstados.Push(estado);
         }
 
         public string Pop()
         {
-            if (_historialEstados.Count > 0)
+            if (_historialEstados.Count>0) 
             {
                 return _historialEstados.Pop();
             }
@@ -36,20 +33,18 @@ namespace SistemaRescateAnimalUI
 
         public string Peek()
         {
-            if (_historialEstados.Count > 0)
+            if (_historialEstados.Count >0)
             {
                 return _historialEstados.Peek();
             }
             return null;
-
         }
 
-       
-        
         public int Count()
         {
             return _historialEstados.Count;
         }
+
         public bool ExisteEstados(string estadoBuscar)
         {
             foreach (string estado in _historialEstados)
@@ -67,7 +62,6 @@ namespace SistemaRescateAnimalUI
             _historialEstados.Clear();
         }
 
-        //mostraos datos 
         public List<string> VolcarArreglo()
         {
             List<string> listaCopia = new List<string>();
@@ -77,7 +71,6 @@ namespace SistemaRescateAnimalUI
             }
             return listaCopia;
         }
+
     }
 }
-    
-
